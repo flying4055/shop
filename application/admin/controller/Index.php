@@ -37,7 +37,7 @@ class Index extends Base
                 $menuData[] = $authData[$key];
             } else {
                 foreach ($menuData as $k => &$val) {
-                    if($value['pid'] === $val['id']){
+                    if ($value['pid'] === $val['id']) {
                         $menuData[$k]['child'][] = $authData[$key];
                     }
                 }

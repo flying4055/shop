@@ -6,11 +6,12 @@
  * Time: 18:00
  */
 
-namespace app\admin\controller;
+namespace app\admin\controller\system;
 
 
 use think\Db;
 use think\Request;
+use app\admin\controller\Base;
 
 class Admin extends Base
 {
@@ -22,7 +23,7 @@ class Admin extends Base
     public function index()
     {
         $this->assign('web_title', '管理员列表');
-        return $this->fetch('lists');
+        return $this->fetch('admin/lists');
     }
 
     public function admin_lists(Request $request)
@@ -42,7 +43,7 @@ class Admin extends Base
         $data = Db::table('role')->field('id,role_name')->select();
         $this->assign('role_list', $data);
         $this->assign('web_title', '添加管理员');
-        return $this->fetch('add');
+        return $this->fetch('admin/add');
     }
 
     public function store(Request $request)
