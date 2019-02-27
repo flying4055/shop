@@ -4,7 +4,7 @@ namespace app\admin\controller;
 
 use think\Db;
 
-class Role extends Base
+class Orders extends Base
 {
     public function index()
     {

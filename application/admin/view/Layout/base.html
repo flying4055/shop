@@ -2,7 +2,9 @@
 <body>
 {block name="nav"}
 <div class="container">
-    <div class="logo"><a href="./index.html">商城管理系统</a></div>
+    <div class="logo">
+        <a href="/admin/index.html">商城管理系统</a>
+    </div>
     <div class="left_open">
         <i title="展开左侧栏" class="iconfont">&#xe699;</i>
     </div>
@@ -11,16 +13,18 @@
     </ul>
     <ul class="layui-nav right" lay-filter="">
         <li class="layui-nav-item">
-            <a href="javascript:;">
+            <a href="javascript:;" style="padding-left: 0;">
+                {notempty name="$Think.session.admin['avatar']"}
                 <span>
-                    <img style="width: 30px;height: 30px;" src="{$Think.session.admin['avatar'] ?? ''}" alt="">
+                    <img style="width: 30px;height: 30px;" src="{$Think.session.admin['avatar']}" alt="">
                 </span>
+                {/notempty}
                 <span>
                    &nbsp; {$Think.session.admin.username?$Think.session.admin.username:'admin'}
                </span>
             </a>
             <dl class="layui-nav-child">
-                <dd><a href="./login.html">退出</a></dd>
+                <dd><a href="/admin/login/logOut">退出</a></dd>
             </dl>
         </li>
 
@@ -40,7 +44,7 @@
         </ul>
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
-                <iframe src='./index/welcome.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                <iframe src='/admin/index/welcome.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
             </div>
         </div>
     </div>

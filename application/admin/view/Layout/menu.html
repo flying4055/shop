@@ -1,37 +1,22 @@
 <div id="side-nav">
     <ul id="nav">
+        {volist name="menuData" id="vo"}
         <li>
             <a href="javascript:;">
                 <i class="iconfont">&#xe726;</i>
-                <cite>管理员管理</cite>
+                <cite>{$vo.auth_name}</cite>
                 <i class="iconfont nav_right">&#xe697;</i>
             </a>
             <ul class="sub-menu">
+                {volist name="$vo.child" id="v"}
                 <li>
-                    <a _href="./admin/index.html">
-                        <i class="iconfont">&#xe6a7;</i>
-                        <cite>管理员列表</cite>
+                    <a _href="/admin{$v.auth_link}">
+                        <cite>{$v.auth_name}</cite>
                     </a>
                 </li>
-                <li>
-                    <a _href="./admin/roles_list.html">
-                        <i class="iconfont">&#xe6a7;</i>
-                        <cite>角色管理</cite>
-                    </a>
-                </li>
-                <li>
-                    <a _href="admin-cate.html">
-                        <i class="iconfont">&#xe6a7;</i>
-                        <cite>权限分类</cite>
-                    </a>
-                </li>
-                <li>
-                    <a _href="admin-rule.html">
-                        <i class="iconfont">&#xe6a7;</i>
-                        <cite>权限管理</cite>
-                    </a>
-                </li>
+                {/volist}
             </ul>
         </li>
+        {/volist}
     </ul>
 </div>

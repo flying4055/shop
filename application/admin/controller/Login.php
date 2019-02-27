@@ -8,26 +8,22 @@
 
 namespace app\admin\controller;
 
+use think\Controller;
 use think\Db;
 use think\Request;
 use think\Session;
 
-class Login extends Base
+class Login extends Controller
 {
-    protected function _initialize()
-    {
-        parent::_initialize();
-    }
-
     public function index()
     {
-        $this->assign('title', '商城管理系统');
+        $this->assign('web_title', '商城管理系统');
         return $this->fetch('index');
     }
 
     public function checkLogin(Request $request)
     {
-        $param = $request->param();
+        $param = $request->post();
         if (isset($param['username'])) {
             $res_user_info = Db::table('admin')->where('username', $param['username'])->find();
             if (!empty($res_user_info)) {
@@ -47,6 +43,12 @@ class Login extends Base
             return json(['code' => 404, 'msg' => '登录失败,用户名或密码不正确!!!']);
         }
         return json(['code' => 400, 'msg' => '登录失败,请填写正确!!!']);
+    }
+
+    public function logOut()
+    {
+        Session::clear();
+        $this->success('您退出管理系统, 再见了', '/admin/login/index');
     }
 
 }
