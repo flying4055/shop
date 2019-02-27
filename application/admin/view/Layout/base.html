@@ -1,0 +1,50 @@
+{include file="Layout/header" /}
+<body>
+{block name="nav"}
+<div class="container">
+    <div class="logo"><a href="./index.html">商城管理系统</a></div>
+    <div class="left_open">
+        <i title="展开左侧栏" class="iconfont">&#xe699;</i>
+    </div>
+    <ul class="layui-nav left fast-add" lay-filter="">
+        <li class="layui-nav-item to-index"><a href="/">前台首页</a></li>
+    </ul>
+    <ul class="layui-nav right" lay-filter="">
+        <li class="layui-nav-item">
+            <a href="javascript:;">
+                <span>
+                    <img style="width: 30px;height: 30px;" src="{$Think.session.admin['avatar'] ?? ''}" alt="">
+                </span>
+                <span>
+                   &nbsp; {$Think.session.admin.username?$Think.session.admin.username:'admin'}
+               </span>
+            </a>
+            <dl class="layui-nav-child">
+                <dd><a href="./login.html">退出</a></dd>
+            </dl>
+        </li>
+
+    </ul>
+</div>
+{/block}
+{block name="left"}
+<div class="left-nav">
+    {include file="Layout/menu" /}
+</div>
+{/block}
+{block name="main"}
+<div class="page-content">
+    <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+        <ul class="layui-tab-title">
+            <li class="home"><i class="layui-icon">&#xe68e;</i>我的桌面</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <iframe src='./index/welcome.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+</body>
+</html>

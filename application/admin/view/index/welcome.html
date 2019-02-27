@@ -1,0 +1,107 @@
+{include file="Layout/header" /}
+<div class="x-body layui-anim layui-anim-up">
+    <blockquote class="layui-elem-quote">欢迎管理员：
+        <span class="x-red"> {$Think.session.admin.username} </span>
+        当前时间:<?php echo date('Y-m-d H:i:s')?> </blockquote>
+    <fieldset class="layui-elem-field">
+        <legend>数据统计</legend>
+        <div class="layui-field-box">
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <div class="layui-carousel x-admin-carousel x-admin-backlog" lay-anim="" lay-indicator="inside" lay-arrow="none" style="width: 100%; height: 90px;">
+                            <div carousel-item="">
+                                <ul class="layui-row layui-col-space10 layui-this">
+                                    <li class="layui-col-xs3">
+                                        <a href="javascript:;" class="x-admin-backlog-body">
+                                            <h3>订单数</h3>
+                                            <p>
+                                                <cite>24566</cite>
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="layui-col-xs3">
+                                        <a href="javascript:;" class="x-admin-backlog-body">
+                                            <h3>用户数</h3>
+                                            <p>
+                                                <cite>999</cite>
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="layui-col-xs3">
+                                        <a href="javascript:;" class="x-admin-backlog-body">
+                                            <h3>会员数</h3>
+                                            <p>
+                                                <cite>99</cite>
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="layui-col-xs3">
+                                        <a href="javascript:;" class="x-admin-backlog-body">
+                                            <h3>商品数</h3>
+                                            <p>
+                                                <cite>367</cite>
+                                            </p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset class="layui-elem-field">
+        <legend>系统信息</legend>
+        <div class="layui-field-box">
+            <table class="layui-table">
+                <tbody>
+                <tr>
+                    <th>1.0版本</th>
+                    <td>1.0.1</td>
+                </tr>
+                <tr>
+                    <th>运行环境</th>
+                    <td>Nginx</td>
+                </tr>
+                <tr>
+                    <th>PHP版本</th>
+                    <td>7.2.12</td>
+                </tr>
+                <tr>
+                    <th>PHP运行方式</th>
+                    <td>cgi-fcgi</td>
+                </tr>
+                <tr>
+                    <th>MYSQL版本</th>
+                    <td>5.5.53</td>
+                </tr>
+                <tr>
+                    <th>ThinkPHP</th>
+                    <td>5.0.24</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </fieldset>
+    <fieldset class="layui-elem-field">
+        <legend>开发团队</legend>
+        <div class="layui-field-box">
+            <table class="layui-table">
+                <tbody>
+                <tr>
+                    <th>版权所有</th>
+                    <td>
+                        LeonYang
+                    </td>
+                </tr>
+                <tr>
+                    <th>开发者</th>
+                    <td>LeonYang ( rootyangliang@126.com )</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </fieldset>
+</div>
