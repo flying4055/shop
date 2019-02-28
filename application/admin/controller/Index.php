@@ -30,7 +30,7 @@ class Index extends Base
     {
         $roles_info = Session::get('admin')['roles'];
         $auth_ids = Db::table('role')->field('auth_ids')->where('id', 'in', $roles_info)->find();
-        $authData = Db::table('auth')->field('id,auth_name,auth_link,pid')->select();
+        $authData = Db::table('auth')->field('id,auth_name,auth_link,icon,pid')->select();
         $menuData = [];
         foreach ($authData as $key => &$value) {
             if ($value['pid'] === 0) {

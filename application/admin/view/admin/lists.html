@@ -14,6 +14,12 @@
 <script type="text/html" id="avatarTpl">
     <img style="height: 40px;" src="{{d.avatar?d.avatar:''}}" alt="">
 </script>
+
+<script type="text/html" id="rightTpl">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
 <script>
     layui.use(['laydate', 'table'], function () {
         var laydate = layui.laydate;
@@ -23,7 +29,7 @@
         table.render({
             elem: '#demo'
             , height: 312
-            , url: './admin_lists' //数据接口
+            , url: './lists' //数据接口
             , page: true //开启分页
             , cols: [[ //表头
                 {field: 'id', title: 'ID', width: 80, sort: true, align: 'center', fixed: 'left'}
@@ -32,7 +38,7 @@
                 , {field: 'roles', title: '角色', width: 80, align: 'center'}
                 , {field: 'create_time', title: '创建时间', align: 'center', width: 160, sort: true}
                 , {field: 'update_time', title: '更新时间', align: 'center', width: 160, sort: true}
-                , {field: 'right', title: '操作', align: 'center',}
+                , {field: 'right', title: '操作', align: 'center', toolbar: '#rightTpl'}
             ]]
         });
 
@@ -45,49 +51,38 @@
         laydate.render({
             elem: '#end' //指定元素
         });
-    });
 
-    /*用户-停用*/
-    function member_stop(obj, id) {
-        layer.confirm('确认要停用吗？', function (index) {
+        table.on('tool(test)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            var tr = obj.tr; //获得当前行 tr 的DOM对象
 
-            if ($(obj).attr('title') == '启用') {
-
-                //发异步把用户状态进行更改
-                $(obj).attr('title', '停用')
-                $(obj).find('i').html('&#xe62f;');
-
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!', {icon: 5, time: 1000});
-
-            } else {
-                $(obj).attr('title', '启用')
-                $(obj).find('i').html('&#xe601;');
-
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!', {icon: 5, time: 1000});
+            if (layEvent === 'detail') { //查看
+                //do somehing
+            } else if (layEvent === 'del') { //删除
+                layer.confirm('请确认删除这条数据', function (index) {
+                    $.ajax({
+                        url: './delete?del_id=' + data.id,
+                        method: 'GET',
+                        success: function (result) {
+                            console.log(result);
+                            layer.msg(result.msg, {offset: '80px'}, function () {
+                                obj.del();
+                            });
+                            return false;
+                        }
+                    });
+                });
+            } else if (layEvent === 'edit') { //编辑
+                layer.open({
+                    type: 2,
+                    title: '编辑',
+                    shadeClose: true,
+                    maxmin: true,
+                    area: ['80%', '80%'],
+                    content: './edit.html?edit_id=' + data.id
+                });
             }
-
         });
-    }
-
-    /*用户-删除*/
-    function member_del(obj, id) {
-        layer.confirm('确认要删除吗？', function (index) {
-            //发异步删除数据
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!', {icon: 1, time: 1000});
-        });
-    }
-
-    function delAll(argument) {
-
-        var data = tableCheck.getData();
-
-        layer.confirm('确认要删除吗？' + data, function (index) {
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
-        });
-    }
+    });
 </script>

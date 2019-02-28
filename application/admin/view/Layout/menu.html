@@ -3,7 +3,9 @@
         {volist name="menuData" id="vo"}
         <li>
             <a href="javascript:;">
-                <i class="iconfont">&#xe726;</i>
+                {notempty name="$vo.icon"}
+                <i class="fa {$vo.icon}"></i>
+                {/notempty}
                 <cite>{$vo.auth_name}</cite>
                 <i class="iconfont nav_right">&#xe697;</i>
             </a>

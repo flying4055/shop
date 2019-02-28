@@ -4,41 +4,35 @@
         <div class="layui-form-item">
             <label for="username" class="layui-form-label"><span class="x-red">*</span>登录名</label>
             <div class="layui-input-inline">
-                <input type="text" id="username" name="username" required="" lay-verify="required" autocomplete="off" class="layui-input">
+                <input type="text" id="username" name="username" required="" lay-verify="required" autocomplete="off" value="{$admin_data.username}" class="layui-input">
+                <input type="hidden" name="id" value="{$admin_data.id}">
             </div>
             <div class="layui-form-mid layui-word-aux"><span class="x-red">*</span>将会成为您唯一的登入名</div>
-        </div>
-        <div class="layui-form-item">
-            <label for="avatar" class="layui-form-label">头像</label>
-            <div class="layui-input-inline">
-                <input type="text" id="avatar" name="avatar" autocomplete="off" class="layui-input">
-            </div>
-            <div class="layui-form-mid layui-word-aux"><span class="x-red">*</span>请填写图片地址</div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label"><span class="x-red">*</span>角色</label>
             <div class="layui-input-block">
                 {volist name="role_list" id="vo"}
-                <input type="checkbox" name="roles" value="{$vo.id}" lay-skin="primary" title="{$vo.role_name}">
+                <input {eq name="$admin_data.roles" value="$vo.id" } checked {/eq} type="checkbox" name="roles" value="{$vo.id}" lay-skin="primary" title="{$vo.role_name}">
                 {/volist}
             </div>
         </div>
+        <!--<div class="layui-form-item">-->
+            <!--<label for="L_pass" class="layui-form-label"><span class="x-red">*</span>密码</label>-->
+            <!--<div class="layui-input-inline">-->
+                <!--<input type="password" id="L_pass" name="pass" required="" lay-verify="pass" autocomplete="off" class="layui-input">-->
+            <!--</div>-->
+            <!--<div class="layui-form-mid layui-word-aux">6到16个字符</div>-->
+        <!--</div>-->
+        <!--<div class="layui-form-item">-->
+            <!--<label for="L_repass" class="layui-form-label"><span class="x-red">*</span>确认密码</label>-->
+            <!--<div class="layui-input-inline">-->
+                <!--<input type="password" id="L_repass" name="repass" required="" lay-verify="repass" autocomplete="off" class="layui-input">-->
+            <!--</div>-->
+        <!--</div>-->
         <div class="layui-form-item">
-            <label for="L_pass" class="layui-form-label"><span class="x-red">*</span>密码</label>
-            <div class="layui-input-inline">
-                <input type="password" id="L_pass" name="password" required="" lay-verify="pass" autocomplete="off" class="layui-input">
-            </div>
-            <div class="layui-form-mid layui-word-aux">6到16个字符</div>
-        </div>
-        <div class="layui-form-item">
-            <label for="L_repass" class="layui-form-label"><span class="x-red">*</span>确认密码</label>
-            <div class="layui-input-inline">
-                <input type="password" id="L_repass" name="repass" required="" lay-verify="repass" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label for="L_repass" class="layui-form-label"></label>
-            <button class="layui-btn" lay-filter="add" lay-submit="">确认添加</button>
+            <label  class="layui-form-label"></label>
+            <button class="layui-btn" lay-filter="update" lay-submit="">确认修改</button>
         </div>
     </form>
 </div>
@@ -47,6 +41,7 @@
         $ = layui.jquery;
         var form = layui.form
             , layer = layui.layer;
+
         //自定义验证规则
         form.verify({
             nikename: function (value) {
@@ -61,22 +56,22 @@
                 }
             }
         });
+
         //监听提交
-        form.on('submit(add)', function (data) {
+        form.on('submit(update)', function (data) {
             var checkID = [];
             $("input[name='roles']:checked").each(function (i) {
                 checkID[i] = $(this).val();
             });
             data.field.roles = checkID.join(',');
-            console.log(data.field);
             $.ajax({
                 url: './store',
                 method: 'POST',
                 data: data.field,
                 success: function (result) {
+                    console.log(result);
                     layer.alert(result.msg, {offset: '80px'}, function () {
                         var index = parent.layer.getFrameIndex(window.name);
-                        parent.location.reload();
                         parent.layer.close(index);
                     });
                     return false;
@@ -84,5 +79,7 @@
             });
             return false;
         });
+
+
     });
 </script>
