@@ -1,12 +1,10 @@
 {include file="Layout/header" /}
 <div class="x-body">
     <xblock>
-        <!--<button class="layui-btn layui-btn-sm layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>-->
         <button class="layui-btn layui-btn-sm layui-btn-normal" onclick="x_admin_show('添加用户','./add.html')"><i class="layui-icon"></i>添加</button>
         <button class="layui-btn layui-btn-sm layui-btn-warm" onclick="javascript:location.replace(location.href);">
             <i class="layui-icon">&#x1002;</i> 刷新
         </button>
-        <span class="x-right" style="line-height:30px">共有数据：88 条</span>
     </xblock>
     <table id="demo" lay-filter="test"></table>
 </div>
@@ -28,7 +26,7 @@
         //第一个实例
         table.render({
             elem: '#demo'
-            , height: 312
+            , height: 'full-200'
             , url: './lists' //数据接口
             , page: true //开启分页
             , cols: [[ //表头
@@ -60,7 +58,7 @@
             if (layEvent === 'detail') { //查看
                 //do somehing
             } else if (layEvent === 'del') { //删除
-                layer.confirm('请确认删除这条数据', function (index) {
+                layer.confirm('请确认删除这条数据',{title: "提示"}, function (index) {
                     $.ajax({
                         url: './delete?del_id=' + data.id,
                         method: 'GET',
